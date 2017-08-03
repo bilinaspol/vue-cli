@@ -1,10 +1,10 @@
 <template>
-   <h1>Hello stage-2</h1>
+  <div>
+   <cmp-home></cmp-home>
+   </div>
 </template>
 
 <script>
-export default {
-}
 </script>
 
 <style>
