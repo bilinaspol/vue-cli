@@ -1,10 +1,21 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Home from './Home.vue'
-
-Vue.component('cmp-home', Home)
+import Vue from 'vue';
+import keyboard from 'vue-keyboard';
 
 new Vue({
     el: '#app',
-    ...App
-})
+    components: { keyboard },
+
+    data: {
+        input: '',
+    },
+
+    methods: {
+        changed(value) {
+            console.log('Value ' + value);
+        },
+
+        custom(keyboard) {
+            console.log(keyboard.value);
+        }
+    }
+});

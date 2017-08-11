@@ -1,10 +1,14 @@
 <template>
   <div>
-   <cmp-home></cmp-home>
+   <keyb></keyb>
    </div>
 </template>
 
 <script>
+import Keyb from './Keyb.vue'
+ export default {
+   components: Keyb
+ }
 </script>
 
 <style>

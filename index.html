@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>vue-cli</title>
-  </head>
-  <body>
-    <div id="app"></div>
+</head>
+
+<body>
+    <div id="app">
+        <input placeholder="press some keys..." maxlength="100" type="text" v-model="input">
+        <keyboard v-model="input" @custom="custom" @input="changed" :layouts="[
+		'1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
+		'!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+	]" :maxlength="100"></keyboard>
+    </div>
     <script src="/dist/build.js"></script>
-  </body>
+</body>
+
 </html>
