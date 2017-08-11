@@ -1,21 +1,8 @@
 import Vue from 'vue';
-import keyboard from 'vue-keyboard';
+import Keyb from './Keyb.vue'
 
 new Vue({
     el: '#app',
-    components: { keyboard },
-
-    data: {
-        input: '',
-    },
-
-    methods: {
-        changed(value) {
-            console.log('Value ' + value);
-        },
-
-        custom(keyboard) {
-            console.log(keyboard.value);
-        }
-    }
+    components: { 'keyb': Keyb },
+    template: `<keyb></keyb>`,
 });

@@ -13,7 +13,7 @@
 <script>
    import keyboard from '../node_modules/vue-keyboard/src/keyboard.vue';
    export default {
-       components: keyboard,
+       components: { keyboard },
        data() {
            return {
                input: '',
