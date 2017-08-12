@@ -1,12 +1,16 @@
 <template>
  <div>
 	<input placeholder="press some keys..." maxlength="40" type="text" v-model="input">
-      <keyboard
-          v-model="input"
-          :layouts="alay"
-          :maxlength="16"
-          @reverse="reverse"
-      ></keyboard>
+<keyboard
+    v-model="input"
+    @custom="custom"
+    @input="changed"
+    :layouts="[
+        '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
+        '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+    ]"
+    :maxlength="50"
+></keyboard>
  </div>
 </template>
 
@@ -16,22 +20,23 @@
        components: { keyboard },
        data() {
            return {
-               input: '',
-               alay: [
-              '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{reverse:reverse}',
-              '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{reverse:reverse}'
-              ]
+               input: ''
            }
        },
        	methods: {
-		changed(value) {
-			console.log('Value ' + value);
-		},
+            changed(value) {
+                console.log('Value ' + value);
+            },
 
-		custom(keyboard) {
-			console.log(keyboard.value);
-		}
-	}
+            custom(keyboard) {
+                console.log(keyboard.value);
+            }
+	    },
+        created() {
+            document.addEventListener('keyup', (event) => {
+              console.log(event.key);
+            })
+        }
    }
 
 </script>
