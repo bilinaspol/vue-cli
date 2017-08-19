@@ -15,7 +15,7 @@
 </template>
 
 <script>
-   import keyboard from '../node_modules/vue-keyboard/src/keyboard.vue';
+   import keyboard from './keyboard.vue';
    export default {
        components: { keyboard },
        data() {

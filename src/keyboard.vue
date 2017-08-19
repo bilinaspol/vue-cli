@@ -210,16 +210,16 @@
 
 <style>
 	.vue-keyboard-row {
-		padding: 2px 0;
+		padding: 1px 0;
 		text-align: center;
 	}
 
 	.vue-keyboard-key {
 		border: none;
 		outline: none;
-		padding: 8px 10px;
-		min-width: 40px;
-		margin: 0 2px;
+		padding: 1% 1.2%;
+		min-width: 7%;
+		margin: 1px 1px;
 		background: #EEE;
 		color: #666;
 		cursor: pointer;
@@ -239,6 +239,6 @@
 	}
 
 	.vue-keyboard-key[data-action="space"] {
-		min-width: 160px;
+		min-width: 30%;
 	}
 </style>
