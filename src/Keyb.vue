@@ -1,15 +1,18 @@
 <template>
  <div>
-	<input placeholder="press some keys..." maxlength="40" type="text" v-model="input">
+     <textarea v-focus class="form-control" style="min-width: 100%" v-model="input"></textarea>
+ <!---
+	<input v-focus placeholder="press some keys..." maxlength="140" type="text" v-model="input">
+-->
 <keyboard
     v-model="input"
     @custom="custom"
     @input="changed"
     :layouts="[
-        '1234567890{delete:backspace}|qwertyuiop|asdfghjkl|{shift:goto:1}zxcvbnm|{space:space}{custom:custom}',
-        '!@#$%^&*(){delete:backspace}|QWERTYUIOP|ASDFGHJKL|{shift:goto:0}ZXCVBNM|{space:space}{custom:custom}'
+        '1234567890{⌫:backspace}|qwertyuiop|asdfghjkl|{⇑:goto:1}zxcvbnm|{space:space}{custom:custom}',
+        '!@#$%^&*(){⌫:backspace}|QWERTYUIOP|ASDFGHJKL|{⇑:goto:0}ZXCVBNM|{space:space}{custom:custom}'
     ]"
-    :maxlength="50"
+    :maxlength="150"
 ></keyboard>
  </div>
 </template>
@@ -30,16 +33,36 @@
 
             custom(keyboard) {
                 console.log(keyboard.value);
+            },
+            triggerEvent( elem, event ) {
+                var clickEvent = new Event( event ); // Create the event.
+                elem.dispatchEvent( clickEvent );    // Dispatch the event.
+            },
+            getElementByChar(char) {
+                return new Promise ((resolve,reject)=>{
+                    el= document.querySelector('[data-text="`${char}`"]')
+                    console.log(el);
+                    resovle(el);
+                })
             }
 	    },
         created() {
+            
             document.addEventListener('keyup', (event) => {
               console.log(event.key);
+              this.getElementByChar(event.key).then(function (val) { this.triggerEvent(val,'click')} );
+
             })
+        },
+        directives: {
+            focus: {
+                inserted(el) { el.focus(); }
+            }
+
         }
    }
 
-</script>
+</script>s
 
 <style>
 </style>

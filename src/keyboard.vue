@@ -106,12 +106,14 @@
 								if (char === Tokens.OPEN_BRACE) char = '{';
 								if (char === Tokens.CLOSE_BRACE) char = '}';
 
-								buttons.push({
+								let obj = {
 									type: 'char',
 									action: { name: null, callable: this.append.bind(this, char) },
 									value: char,
 									args: null
-								});
+								};
+								// console.log('obj:',obj);
+								buttons.push(obj);
 							}
 						}
 					});
@@ -149,6 +151,7 @@
 			 */
 			append(char) {
 				this.mutate(this.value + char);
+				console.log('append:',char);
 			},
 
 			/**
@@ -218,13 +221,13 @@
 		border: none;
 		outline: none;
 		padding: 1% 1.2%;
-		min-width: 7%;
+		min-width: 8%;
 		margin: 1px 1px;
 		background: #EEE;
 		color: #666;
 		cursor: pointer;
 		font-family: inherit;
-		font-size: inherit;
+		font-size: inherit 1.3em;
 		border-radius: 2px;
 	}
 
