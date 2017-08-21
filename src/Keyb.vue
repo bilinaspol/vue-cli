@@ -23,7 +23,9 @@
        components: { keyboard },
        data() {
            return {
-               input: ''
+               input: '',
+               isActive: false,
+               input_focused: false
            }
        },
        	methods: {
@@ -40,29 +42,41 @@
             },
             getElementByChar(char) {
                 return new Promise ((resolve,reject)=>{
-                    el= document.querySelector('[data-text="`${char}`"]')
-                    console.log(el);
-                    resovle(el);
+                   resolve( document.querySelector('[data-text="'+char+'"]'))
                 })
             }
 	    },
         created() {
             
             document.addEventListener('keyup', (event) => {
-              console.log(event.key);
-              this.getElementByChar(event.key).then(function (val) { this.triggerEvent(val,'click')} );
-
+             this.input=this.input+event.key; 
+               
+             console.log('event.key:',event.key,this.input);
+             this.getElementByChar(event.key)
+                 .then(resolve=> {
+                     console.log(resolve);
+                     consoel.log('input_focused:',this.input_focused);        
+                 })
+            }),
+            input.addEventListener("focus", function() {
+                 this.input_focused = true;
+            }),
+            input.addEventListener("blur", function() {
+                this.input_focused = false;
             })
         },
         directives: {
             focus: {
-                inserted(el) { el.focus(); }
+                updated(el) { el.focus(); }
             }
 
         }
    }
 
-</script>s
+</script>
 
 <style>
+.hov {
+		background: #E0E0E0;
+}
 </style>
