@@ -44,7 +44,7 @@ Fintech startup N26 is getting more and more customers. The company reported 300
        },
        	methods: {
             changed(value) {
-                console.log('Value ' + value);
+                console.log('changed() =>Value ' + value,'input',this.input);
             },
             infocus(){
                 this.focused = true;
@@ -72,13 +72,17 @@ Fintech startup N26 is getting more and more customers. The company reported 300
                 })
             }
 	    },
-
+        watch: {
+            input: function(val,oldVal) {
+                console.log('watch() input=> new_input:',val,'old_input:',oldVal)
+            }
+        },
         created() {      
             document.addEventListener('keyup', (event) => {
              
              this.focused ? null : this.input=this.input+event.key;   
 
-             console.log('event.key:',event.key,this.input);
+             console.log('listener(keyup)=>event.key:',event.key,this.input);
   //           this.getElementByChar(event.key)
   //               .then(resolve=> {
   //                   console.log(resolve);
