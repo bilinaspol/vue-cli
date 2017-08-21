@@ -1,12 +1,13 @@
 <template>
  <div>
 <img src="https://tctechcrunch2011.files.wordpress.com/2016/12/n26.jpg?w=764&h=400&crop=1">    
-<span>2017-08-21 07:01:30 Romain Dillet<br><b>
-N26 now has 500,000 customers for its bank of the future</b><br>
-Fintech startup N26 is getting more and more customers. The company reported 300,000 customers back in March. It now has 500,000 customers across Europe..."
-<a href="https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/">https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/</a>
-</span>
-
+<div>
+  <span id="done" v-model="done">{{done}}</span>
+  <span id="red" class="red"
+        v-model="red">{{red}}</span><span id="curr" :style="{ background: activeColor}" 
+        v-model="current">{{current}}</span><span id="todo" 
+        v-model="todo" v-html="todo">{{todo}}</span>
+</div>
      <textarea type="text" @focus="infocus" @blur="unfocus" 
                class="form-control" style="min-width: 100%" v-model="input"></textarea>
 
@@ -30,9 +31,15 @@ Fintech startup N26 is getting more and more customers. The company reported 300
        data() {
            return {
                input: '',
-               isActive: false,
-               input_focused: false,
-               focused: false 
+               focused: false,
+               done: '',
+               red: '',
+               current: '',
+               activeColor: 'white',
+               todo: `2017-08-21 07:01:30 Romain Dillet<br><b>
+N26 now has 500,000 customers for its bank of the future</b><br>
+Fintech startup N26 is getting more and more customers. The company reported 300,000 customers back in March. It now has 500,000 customers across Europe...
+<a href="https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/">https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/</a>`
            }
        },
        	methods: {
@@ -65,6 +72,7 @@ Fintech startup N26 is getting more and more customers. The company reported 300
                 })
             }
 	    },
+
         created() {      
             document.addEventListener('keyup', (event) => {
              
@@ -90,7 +98,15 @@ Fintech startup N26 is getting more and more customers. The company reported 300
 </script>
 
 <style>
-.hov {
+#done {
 		background: #E0E0E0;
 }
+.red {
+    background: lightcoral;
+}
+#curr {
+    font-size: 1.2em;
+    text-decoration: underline;
+}
+               
 </style>
