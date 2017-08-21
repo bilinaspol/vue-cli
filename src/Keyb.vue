@@ -1,9 +1,15 @@
 <template>
  <div>
-     <textarea v-focus class="form-control" style="min-width: 100%" v-model="input"></textarea>
- <!---
-	<input v-focus placeholder="press some keys..." maxlength="140" type="text" v-model="input">
--->
+<img src="https://tctechcrunch2011.files.wordpress.com/2016/12/n26.jpg?w=764&h=400&crop=1">    
+<span>2017-08-21 07:01:30 Romain Dillet<br><b>
+N26 now has 500,000 customers for its bank of the future</b><br>
+Fintech startup N26 is getting more and more customers. The company reported 300,000 customers back in March. It now has 500,000 customers across Europe..."
+<a href="https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/">https://techcrunch.com/2017/08/21/n26-now-has-500000-customers-for-its-bank-of-the-future/</a>
+</span>
+
+     <textarea type="text" @focus="infocus" @blur="unfocus" 
+               class="form-control" style="min-width: 100%" v-model="input"></textarea>
+
 <keyboard
     v-model="input"
     @custom="custom"
@@ -25,14 +31,22 @@
            return {
                input: '',
                isActive: false,
-               input_focused: false
+               input_focused: false,
+               focused: false 
            }
        },
        	methods: {
             changed(value) {
                 console.log('Value ' + value);
             },
-
+            infocus(){
+                this.focused = true;
+                console.log('infocus=>focused:',this.focused)
+            },
+            unfocus(){
+                this.focused=false;
+                console.log('unfocus=>focused:',this.focused)
+            },
             custom(keyboard) {
                 console.log(keyboard.value);
             },
@@ -44,26 +58,26 @@
                 return new Promise ((resolve,reject)=>{
                    resolve( document.querySelector('[data-text="'+char+'"]'))
                 })
+            },
+            getTextArea() {
+                return new Promise ((resolve,reject)=>{
+                    resolve( document.getElementsByTagName('textarea')[0])
+                })
             }
 	    },
-        created() {
-            
+        created() {      
             document.addEventListener('keyup', (event) => {
-             this.input=this.input+event.key; 
-               
+             
+             this.focused ? null : this.input=this.input+event.key;   
+
              console.log('event.key:',event.key,this.input);
-             this.getElementByChar(event.key)
-                 .then(resolve=> {
-                     console.log(resolve);
-                     consoel.log('input_focused:',this.input_focused);        
-                 })
-            }),
-            input.addEventListener("focus", function() {
-                 this.input_focused = true;
-            }),
-            input.addEventListener("blur", function() {
-                this.input_focused = false;
-            })
+  //           this.getElementByChar(event.key)
+  //               .then(resolve=> {
+  //                   console.log(resolve);
+  //                   console.log('focused:',this.focused);        
+  //               })
+            });
+
         },
         directives: {
             focus: {
