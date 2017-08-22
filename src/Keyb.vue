@@ -4,7 +4,7 @@
 <div>
   <span id="done" v-model="done">{{done}}</span>
   <span id="red" class="red"
-        v-model="red">{{red}}</span><span id="curr" :style="{ background: activeColor}" 
+        v-model="red">{{red}}</span><span id="curr" :style="{ color: activeColor}" 
         v-model="current">{{current}}</span><span id="todo" 
         v-model="todo" v-html="todo">{{todo}}</span>
 </div>
@@ -26,6 +26,7 @@
 
 <script>
    import keyboard from './keyboard.vue';
+   import lodash from 'lodash';
    export default {
        components: { keyboard },
        data() {
@@ -35,7 +36,7 @@
                done: '',
                red: '',
                current: '',
-               activeColor: 'white',
+               activeColor: 'red',
                todo: `2017-08-21 07:01:30 Romain Dillet<br><b>
 N26 now has 500,000 customers for its bank of the future</b><br>
 Fintech startup N26 is getting more and more customers. The company reported 300,000 customers back in March. It now has 500,000 customers across Europe...
@@ -74,21 +75,19 @@ Fintech startup N26 is getting more and more customers. The company reported 300
 	    },
         watch: {
             input: function(val,oldVal) {
-                console.log('watch() input=> new_input:',val,'old_input:',oldVal)
+                console.log('watch() input:',oldVal,'=>',val);
+                console.log('diff:',_.split(val,oldVal)[1]);
+
             }
         },
         created() {      
             document.addEventListener('keyup', (event) => {
-             
+            
              this.focused ? null : this.input=this.input+event.key;   
-
-             console.log('listener(keyup)=>event.key:',event.key,this.input);
-  //           this.getElementByChar(event.key)
-  //               .then(resolve=> {
-  //                   console.log(resolve);
-  //                   console.log('focused:',this.focused);        
-  //               })
+             console.log('listener(keyup)=>event.key:',event.key,'input:',this.input);
             });
+        this.current = this.todo[0];
+        this.todo = this.todo.slice(1);
 
         },
         directives: {
@@ -110,7 +109,13 @@ Fintech startup N26 is getting more and more customers. The company reported 300
 }
 #curr {
     font-size: 1.2em;
-    text-decoration: underline;
+}
+
+img{
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:90%;
 }
                
 </style>
